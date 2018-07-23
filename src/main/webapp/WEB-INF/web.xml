@@ -2,6 +2,8 @@
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+
 	<!-- 上下文参数，在监听器中被使用 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
@@ -9,26 +11,26 @@
         	classpath:applicationContext.xml
         </param-value>
 	</context-param>
-	<!-- servlet 技术中的监听器，监听上下文加载事件，基于上下文参数 contextConfigLocation 和 contextClass 
-		两个参数 -->
+
+
+	<!-- 监听器配置 -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	<!-- 配置spring mvc转发器入口 -->
+
+	<!-- 前端控制器配置 -->
 	<servlet>
-		<servlet-name>spring-mvc-test</servlet-name>
+		<servlet-name>dispatcher</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<!-- spring mvc web上下文加载的初始化配置文件，配置了这个参数，则spring mvc的请求默认就不会去WEB-INF目录下查找相应的servletName-servlet.xml文件了 -->
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>classpath:applicationContext-mvc.xml</param-value>
 		</init-param>
-		<!-- 表示说在tomcat或者jetty启动时顺便初始化spring mvc框架的WebApplicationContext上下文-->
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	<!-- 配置默认拦截所有参数 -->
 	<servlet-mapping>
-		<servlet-name>spring-mvc-test</servlet-name>
+		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
 </web-app>
